@@ -1,0 +1,59 @@
+{
+  "UUID": "A43AAsAAfA5AAsAAdAAsA0A",
+  "sectors": [
+    {
+      "id": 0,
+      "name": "Present 1",
+      "image": "./image/image.jpg",
+      "link" : "#"
+    },
+    {
+      "id": 1,
+      "name": "Present 2",
+      "image": "./image/image.jpg",
+      "link" : "#"
+    },
+    {
+      "id": 2,
+      "name": "Present 3",
+      "image": "./image/image.jpg",
+      "link" : "#"
+    },
+    {
+      "id": 3,
+      "name": "Present 4",
+      "image": "./image/image.jpg",
+      "link" : "#"
+    },
+    {
+      "id": 4,
+      "name": "Present 5",
+      "image": "./image/image.jpg",
+      "link" : "#"
+    },
+    {
+      "id": 5,
+      "name": "Present 6",
+      "image": "./image/image.jpg",
+      "link" : "#"
+    },
+    {
+      "id": 6,
+      "name": "Present 7",
+      "image": "./image/image.jpg",
+      "link" : "#"
+    },
+    {
+      "id": 7,
+      "name": "Present 8",
+      "image": "./image/image.jpg",
+      "link" : "#"
+    },
+    {
+      "id": 8,
+      "name": "Present 9",
+      "image": "./image/image.jpg",
+      "link" : "#"
+    }
+  ]
+}

@@ -16,7 +16,7 @@
 
     /*animation: rotating 2s linear infinite;*/
 
-    transition: transform 3s ease-out;
+    /* transition: transform 3s ease-out; */
 }
 
 @keyframes rotating {

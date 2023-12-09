@@ -5,11 +5,11 @@ interface IWheelContext {
     isRotating: boolean
 
     // methods
-    spinWheel?: () => Promise<number> | null
+    spinWheel?: (this:IWheelContext) => Promise<number>
     setWinnerId?: (sectorId: number) => void
     setWheel?: (wheel:IWheel) => void
     setRotation?: (degrees: number) => void
-    setDisabled?: (val:boolean) => void
+    setIsRotating?: (val:boolean) => void
 }
 
 interface IWheel {

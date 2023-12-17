@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b835a5c5-964c-4c5c-a56d-e02ba5cd404d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/payment_connector.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/biogumus-react.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/biogumus-react.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RotateButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RotateButton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Wheel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wheel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/types.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +86,7 @@
       <workItem from="1702377044736" duration="7481000" />
       <workItem from="1702410256714" duration="2858000" />
       <workItem from="1702673986527" duration="33566000" />
-      <workItem from="1702809787451" duration="4895000" />
+      <workItem from="1702809787451" duration="13093000" />
     </task>
     <servers />
   </component>

@@ -17,20 +17,17 @@ export class ColorGen {
     max: number
 
     constructor() {
-        this.colors = [
-            '#bb33ee',
-            '#ffcc44',
-            '#ff2244',
-            '#00bb88',
-            '#a781b3',
-            '#f84c8f',
-            '#37d916',
-        ]
+        this.colors = ["f94144","f3722c","f8961e","f9844a","f9c74f","90be6d","43aa8b","4d908e","577590","277da1"];
         this.count = 0;
         this.max = this.colors.length
     }
 
-    getColor():string {
+    getRandColor():string {
+        let cur = Math.floor(Math.random() * this.max);
+        return this.colors[cur];
+    }
+
+    getNextColor():string {
         let cur = this.count;
         this.count++;
 

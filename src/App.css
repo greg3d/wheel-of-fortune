@@ -7,16 +7,17 @@
 }
 
 .wheel {
-    width: 300px;
-    height: 300px;
+    width: 330px;
+    height: 330px;
     border-radius: 50%;
     background-color: #f2f2f2;
     position: relative;
     overflow: hidden;
-
+    border: 10px solid #c9c9c9;
     /*animation: rotating 2s linear infinite;*/
+    margin: 0 auto 5px;
+    transition: transform 4s cubic-bezier(.25,-0.08,.27,1.01);
 
-    /* transition: transform 3s ease-out; */
 }
 
 @keyframes rotating {
@@ -30,12 +31,13 @@
 
 .sector {
     position: absolute;
+    text-align: right;
     width: 50%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
-    font-size: 18px;
+    font-size: 12px;
     font-weight: bold;
     color: #333;
     transform-origin: 0 50%;
@@ -43,6 +45,56 @@
     left: 50%;
     /*transform: translateY(-200%);*/
     /* border: 1px solid black; */
+    padding: 0 5px 0 35px;
+
+}
+
+.background {
+    height: 1px;
+    width: 1px;
+    position: absolute;
+    z-index: -10;
+    border: 54px solid transparent;
+    border-right: 165px solid black;
+    right: 0;
+}
+
+.divider {
+
+    background: #ccc;
+    width: 100%;
+    position: absolute;
+    height: 3px;
+    transform: rotate(20deg);
+    transform-origin: left;
+    z-index: 3;
+}
+
+.pointer {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 65px;
+    width: 65px;
+    background-color: #fff;
+    border-radius: 50%;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+    border: 2px solid black;
+    /* font-size: 50px; */
+    line-height: 60px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.pointer:after{
+    content: " ";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    border: 14px solid transparent;
+    border-left: 35px solid #fff;
+    transform: translate(40px, -50%);
 }
 
 button {

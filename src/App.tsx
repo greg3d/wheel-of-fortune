@@ -6,10 +6,16 @@ import {defaultWheelContext, delay} from "./utils/constants";
 import RotateButton from "./components/RotateButton";
 import {getRandSector} from "./mocks/random";
 
+interface SectorResponse {
+    sector: number
+    UUID: string
+}
+
 const App = () => {
 
     const [wheelContext, setWheelContext] = useState<IWheelContext>(defaultWheelContext)
     const sectors = wheelContext.wheel.sectors
+    const devMode:boolean = process.env.NODE_ENV === "development"
 
     const setWheel = (newWheel: IWheel): void => {
         setWheelContext((prev) => {
@@ -27,6 +33,14 @@ const App = () => {
         })
     }
 
+    const setWinnderId = (val: number): void => {
+        setWheelContext((prev) => {
+            let temp: IWheelContext = {...prev}
+            temp.winnerSectorId = val
+            return temp;
+        })
+    }
+
     const setRotation = (val: number): void => {
         setWheelContext((prev) => {
             let temp: IWheelContext = {...prev}
@@ -35,23 +49,36 @@ const App = () => {
         })
     }
 
-    const spinWheel = async (): Promise<number> => {
+    const spinWheel = async function (): Promise<number> {
         try {
 
-            //const response = await fetch('http://your-backend-url/api/spin'); // Замените на ваш URL бэкэнда
-            //const {sector} = response.data;
-            //const sectorIndex = sectors.indexOf(sector);
+            let sector : number = -1;
+
+            if (devMode) {
+                sector = await getRandSector(sectors.length, 100)
+            } else {
+                const response = await fetch(window.location.href, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        action: 'spinWheel',
+                        UUID: wheelContext.wheel.UUID
+                    })
+                }); // Замените на ваш URL бэкэнда
+                let { sector } = await response.json() as SectorResponse;
+            }
 
             // @ts-ignore
-            let cur: number = this != undefined ? this.rotation : 0
+            let cur: number = this.rotation
+            cur = cur + 2*360
+            // setRotation(cur)
 
-            cur = cur + 2 * 360
-            setRotation(cur);
+            const val: number = cur - cur % 360 + (360 / sectors.length) * sector + 360
+            setRotation(val)
+            // console.log(sect, val)
+            await delay(3900)
+            setWinnderId(sector + 1)
+            setIsRotating(false)
 
-            const sect = await getRandSector(sectors.length, 500);
-            const val: number = cur + (360 / sectors.length) * sect;
-            setRotation(val);
-            // await delay(2500)
             return val;
 
         } catch (error) {
@@ -61,25 +88,39 @@ const App = () => {
         }
     }
 
-
     useEffect(() => {
         ;(async () => {
             try {
-                const response = await fetch('./wheel.json')
-                await delay(500)
-                const data: IWheel = await response.json()
-                setWheel(data)
+                if (devMode) {
+                    const response = await fetch('./wheel.json')
+                    await delay(100)
+                    const data: IWheel = await response.json()
+                    setWheel(data)
+                } else {
+                    const response = await fetch(window.location.href, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            action: 'getWheel'
+                        })
+                    })
+                    //await delay(500)
+                    const data: IWheel = await response.json()
+                    setWheel(data)
+                }
+
+
             } catch (e) {
                 console.error(e)
             }
         })();
     }, [])
 
-    setRotation.bind(wheelContext)
+    spinWheel.bind(wheelContext)
     wheelContext.spinWheel = spinWheel
     wheelContext.setRotation = setRotation
     wheelContext.setIsRotating = setIsRotating
     wheelContext.setWheel = setWheel
+    wheelContext.setWinnerId = setWinnderId
 
     return (
         <div className="App">

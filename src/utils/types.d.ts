@@ -5,7 +5,7 @@ interface IWheelContext {
     isRotating: boolean
 
     // methods
-    spinWheel?: (this:IWheelContext) => Promise<number>
+    spinWheel?: (this:IWheelContext) => void
     setWinnerId?: (sectorId: number) => void
     setWheel?: (wheel:IWheel) => void
     setRotation?: (degrees: number) => void
@@ -13,13 +13,13 @@ interface IWheelContext {
 }
 
 interface IWheel {
-    UUID: String
+    UUID: string
     sectors: ISector[]
 }
 
 interface ISector {
     id: number
-    name: String
-    image: String
-    link: String
+    name: string
+    image: string
+    link: string
 }

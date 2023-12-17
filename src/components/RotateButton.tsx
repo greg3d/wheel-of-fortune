@@ -1,21 +1,25 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {WheelContext} from "../utils/WheelContext";
 
 const RotateButton = () => {
 
-    const {spinWheel, isRotating} = useContext(WheelContext)
+    const wc = useContext(WheelContext)
+    const [isRot, setIsRot] = useState<boolean>(false)
 
-    const clickHandle = function(e: React.MouseEvent<HTMLButtonElement>){
+    const clickHandle = function (e: React.MouseEvent<HTMLButtonElement>) {
+        setIsRot(true);
         e.preventDefault()
-        //e.currentTarget.disabled = true
-        spinWheel();
+        if (wc.setIsRotating && wc.spinWheel) {
+            wc.setIsRotating(true)
+            wc.spinWheel()
+        }
     }
     return (
-        <div>
-            <button onClick={clickHandle} className={"button is-primary"} disabled={isRotating} >
-                Крутить!
-            </button>
-        </div>
+
+        <button onClick={clickHandle} className={"button is-primary"} disabled={isRot}>
+            Крутить!
+        </button>
+
     );
 };
 

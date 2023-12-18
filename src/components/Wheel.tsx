@@ -1,8 +1,7 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import {useContext} from "react";
 import {WheelContext} from "../utils/WheelContext";
 import {ColorGen} from "../utils/constants";
-import {Style} from "util";
 
 const Wheel = () => {
     const {wheel, rotation, winnerSectorId} = useContext(WheelContext)
@@ -22,7 +21,7 @@ const Wheel = () => {
     return (
 
         <div className="wheel-container">
-            <div className={"pointer"}>{ winnerSectorId == 0 ? '' : winnerSectorId}</div>
+            <div className={"wheel-pointer"}>{ winnerSectorId == 0 ? '' : winnerSectorId}</div>
             <div className="wheel" style={{
                 width: width + 'px',
                 height: width + 'px',
@@ -37,7 +36,7 @@ const Wheel = () => {
                     return (
                         <div key={sector.id} className={"sector"}
                              style={{transform: `translateY(-100%) rotate(-${curr}deg)`}}>
-                            <div className={"background"} style={{
+                            <div className={"sector-background"} style={{
                                 width: 0,
                                 height: 0,
                                 border: `${w}px solid transparent`,
@@ -45,7 +44,7 @@ const Wheel = () => {
                                 borderRight: `${width/2}px solid #${colors.getNextColor()}`,
 
                             }}></div>
-                            <div className="label"><span className={"number"}>{sector.id}</span><span>{sector.name}</span></div>
+                            <div className="sector-label"><span className={"sector-number"}>{sector.id}</span><span>{sector.name}</span></div>
                         </div>
                     )
                 })}

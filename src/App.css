@@ -37,7 +37,7 @@
     display: flex;
     justify-content: right;
     align-items: center;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     color: #333;
     transform-origin: 0 50%;
@@ -49,7 +49,7 @@
 
 }
 
-.background {
+.sector-background {
     height: 1px;
     width: 1px;
     position: absolute;
@@ -59,18 +59,25 @@
     right: 0;
 }
 
-.divider {
-
-    background: #ccc;
-    width: 100%;
-    position: absolute;
-    height: 3px;
-    transform: rotate(20deg);
-    transform-origin: left;
-    z-index: 3;
+.sector-label {
+    padding: 0 10px 0 40px;
+    line-height: 1em;
+    text-align: right;
+    position: relative;
 }
 
-.pointer {
+.sector-label .sector-number {
+    opacity: 0.25;
+    font-size: 88px;
+    line-height: 0;
+    margin-bottom: 0;
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    display: block;
+}
+
+.wheel-pointer {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -87,7 +94,7 @@
     font-weight: bold;
 }
 
-.pointer:after{
+.wheel-pointer:after{
     content: " ";
     position: absolute;
     right: 0;

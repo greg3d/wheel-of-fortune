@@ -16,7 +16,7 @@ const RotateButton = () => {
     }
     return (
 
-        <button onClick={clickHandle} className={"button is-primary"} disabled={isRot}>
+        <button onClick={clickHandle} className={"button is-primary is-large"} disabled={isRot}>
             Крутить!
         </button>
 

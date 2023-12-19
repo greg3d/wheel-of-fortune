@@ -1,12 +1,11 @@
 <?php 
-
 /**
  * CitySelector
  *
  * класс менеджмента города на сайте Biogumus.pro
  * используется библиотека SypexGeo для определения локализации 
  * 
- * @author Gregory Rozenbaum <bitard3d@gmail.com>
+ * @author Gregory Rosenbaum <bitard3d@gmail.com>
  * @package biomanager
  * @version 1.0.0
  */

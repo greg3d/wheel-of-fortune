@@ -13,8 +13,6 @@ if (!empty($source)) {
         case 'getWheel':
             $service = $modx->getService('BioManager', 'BioManager', MODX_CORE_PATH . 'components/biomanager/model/', $scriptProperties);
 
-            // $this->modx->addPackage('BioManager', MODX_CORE_PATH . "components/biomanager/model/");
-
             $c = $modx->newQuery('Present');
             $c->sortby('id');
 
@@ -83,9 +81,63 @@ if (!empty($source)) {
             $modx->addPackage('shopkeeper3', MODX_CORE_PATH . "components/shopkeeper3/model/");
             $order = $modx->getObject('shk_order', array('id' => $orderId));
 
+            $purchases = $order->getMany('shk_purchases', array('order_id' => $orderId));
 
-            $modx->log(MODX_LOG_LEVEL_ERROR, print_r($order->getMany('shk_purchases', array('order_id'=>$orderId)),1));
 
+            $winobj = $wheel['sectors'][$winner - 1];
+
+            $purchase = $modx->newObject('shk_purchases', array(
+
+                'p_id' => 10000 + $winobj['realid'],
+                'order_id' => $orderId,
+                'name' => "ПРИЗ: " . $winobj['name'],
+                'price' => 0,
+                'count' => 1,
+                'data' => "",
+                'class_name' => 'ShopContent',
+                'package_name' => 'biomanager'
+
+            ));
+            $purchase->save();
+
+            $contacts = json_decode($order->get('contacts'), 1);
+            $contacts[] = array('name'=>'wheeldone', 'value'=>'1', 'label'=>"Прошел розыгрыш?");
+            $order->set('contacts', json_encode($contacts));
+            $order->save();
+
+            //Параметры сниппета Shopkeeper3
+            $snippet_properties = array();
+            $response = $modx->runProcessor(
+                'getsnippetproperties',
+                array(),
+                array('processors_path' => $modx->getOption('core_path') . 'components/shopkeeper3/processors/mgr/')
+            );
+            if (!$response->isError()) {
+                $snippet_properties = $response->getObject();
+            }
+
+            require_once MODX_CORE_PATH . "components/shopkeeper3/model/shopkeeper.class.php";
+            $shopCart = new Shopkeeper($modx, $snippet_properties);
+            $orderOutputData = $shopCart->getOrderData($orderId);
+
+            require_once MODX_CORE_PATH . 'components/biomanager/model/biomanager.class.php';
+            $bm = new BioManager($modx, array());
+
+            $np = $bm->getValueFromContacts($order, 'newprice');
+            $op = $bm->getValueFromContacts($order, 'oldprice');
+
+            $body = array(
+                'orderID' => $orderId,
+                'orderDate' => $order->get('sentdate'),
+                'orderPriceDiffer' => $np == $op ? '0' : '1',
+                'orderPrice' => $op,
+                'orderNewPrice' => $np,
+                'orderOldPrice' => $op,
+                'orderOutputData' => $orderOutputData
+            );
+
+            $bm->sendTemplateMail($body, 'orderEmailReportPrize', "Обновлен заказ №" . $orderId . " Вы выиграли приз!", $order->get('email'));
+            //$bm->sendTemplateMail($body, 'orderEmailReportPrize', "Выигрыш по заказу №" . $orderId . ": " . $winobj['name'] , 'bgumus@mail.ru');
             die(json_encode($out));
     }
 
@@ -94,31 +146,32 @@ if (!empty($source)) {
 } else {
 
     $orderId = $_SESSION['shk_lastOrder']['id'];
-
-
     $message = "Ваш заказ оформлен!";
     $carousel = "";
 
     if ($orderId) {
 
-
         $modx->addPackage('shopkeeper3', MODX_CORE_PATH . "components/shopkeeper3/model/");
         $order = $modx->getObject('shk_order', array('id' => $orderId));
-
-        if ($order->get('payment') == "AC" && $order->get('status') == 6) {
-
-            $modx->regClientScript(MODX_ASSETS_URL . 'components/biomanager/js/main.85eaa64c.js');
-            $modx->regClientCSS(MODX_ASSETS_URL . 'components/biomanager/css/main.7e53fd65.css');
-
-            $message = "Ваш заказ оформлен и оплачен!";
-            $carousel = "<h4>Выиграй бесплатный приз к заказу!</h4><p>Чтобы выиграть случайный приз, нажмите на кнопку \"крутить\". Он будет добавлен к вашему оплаченному заказу!</p><div id=\"BioWheelReactRoot\"></div>";
-        }
         $fullname = "";
+        $wheelDone = 0;
+        $contacts = json_decode($order->get('contacts'), 1);
 
-        foreach (json_decode($order->get('contacts'), 1) as $option) {
+        foreach ($contacts as $option) {
             if ($option['name'] == 'fullname') {
                 $fullname = $option['value'];
             }
+
+            if ($option['name'] == 'wheeldone') {
+                $wheelDone = $option['value'];
+            }
+        }
+
+        if ($order->get('payment') == "AC" && $order->get('status') == 6 && $wheelDone != 1) {
+            $modx->regClientScript(MODX_ASSETS_URL . 'components/biomanager/js/main.85eaa64c.js');
+            $modx->regClientCSS(MODX_ASSETS_URL . 'components/biomanager/css/main.ac0f2982.css');
+            $message = "Ваш заказ оформлен и оплачен!";
+            $carousel = "<h4>Выиграй бесплатный приз к заказу!</h4><p>Чтобы выиграть случайный приз, нажмите на кнопку \"крутить\". Он будет добавлен к вашему оплаченному заказу!</p><div id=\"BioWheelReactRoot\"></div>";
         }
 
         $out = array(
@@ -128,14 +181,7 @@ if (!empty($source)) {
             'message' => $message,
             'carousel' => $carousel
         );
-
-    } else {
-        $out = array(
-            'message' => $message,
-            'carousel' => $carousel
-        );
     }
-
 
     $modx->toPlaceholders($out, 'success');
     return;

@@ -122,10 +122,14 @@ const App = () => {
     wheelContext.setWheel = setWheel
     wheelContext.setWinnerId = setWinnderId
 
+
+    let aaa = 455;
+    let bbb = "dfdsafsadf";
+
     return (
         <div className="App">
             <WheelContext.Provider value={wheelContext}>
-                <Wheel/>
+                <Wheel propa={aaa} propb={bbb}/>
                 <RotateButton/>
             </WheelContext.Provider>
         </div>

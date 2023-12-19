@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * payment_connector
+ *
+ * payment
+ *
+ *
+ * @author Gregory Rosenbaum <bitard3d@gmail.com>
+ * @package biomanager
+ * @version 0.9.0
+ */
+
 use YooKassa\Model\PaymentStatus;
 
 require_once dirname(__FILE__, 4) . '/config.core.php';

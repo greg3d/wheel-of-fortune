@@ -51,9 +51,7 @@ const App = () => {
 
     const spinWheel = async function (): Promise<number> {
         try {
-
             let sector : number = -1;
-
             if (devMode) {
                 sector = await getRandSector(sectors.length, 100)
             } else {
@@ -71,7 +69,6 @@ const App = () => {
             let cur: number = this.rotation
             cur = cur + 2*360
             // setRotation(cur)
-
             const val: number = cur - cur % 360 + (360 / sectors.length) * sector + 360
             setRotation(val)
             // console.log(sect, val)

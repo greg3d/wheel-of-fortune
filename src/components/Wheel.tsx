@@ -50,7 +50,7 @@ const Wheel = (props:Props) => {
                                 borderRight: `${width/2}px solid #${colors.getNextColor()}`,
 
                             }}></div>
-                            <div className="sector-label"><span className={"sector-number"}>{sector.id}</span><span>{sector.name}</span></div>
+                            <div className="sector-label"><span className={"sector-number"}>{sector.id +1 }</span><span>{sector.name}</span></div>
                         </div>
                     )
                 })}

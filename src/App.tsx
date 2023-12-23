@@ -100,7 +100,6 @@ const App = () => {
                             action: 'getWheel'
                         })
                     })
-                    //await delay(500)
                     const data: IWheel = await response.json()
                     setWheel(data)
                 }
@@ -110,7 +109,7 @@ const App = () => {
                 console.error(e)
             }
         })();
-    }, [])
+    }, [1])
 
     spinWheel.bind(wheelContext)
     wheelContext.spinWheel = spinWheel

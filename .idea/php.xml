@@ -10,6 +10,14 @@
     <option name="highlightLevel" value="WARNING" />
     <option name="transferred" value="true" />
   </component>
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/../../libs/modx-2x" />
+      <path value="$PROJECT_DIR$/../../libs/yookassa-sdk-php-master-2x" />
+      <path value="$PROJECT_DIR$/../../libs/biogumus/biomanager/model/biomanager" />
+      <path value="$PROJECT_DIR$/../../libs/biogumus/shopkeeper3" />
+    </include_path>
+  </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4">
     <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>

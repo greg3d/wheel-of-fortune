@@ -44,7 +44,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/work/web/BioManager",
+    "last_opened_file_path": "C:/work/web/biogumus-user-profile",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -78,6 +78,7 @@
       <workItem from="1702809787451" duration="31097000" />
       <workItem from="1703008913829" duration="7212000" />
       <workItem from="1703336072735" duration="121000" />
+      <workItem from="1703891937892" duration="71000" />
     </task>
     <servers />
   </component>

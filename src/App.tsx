@@ -7,9 +7,7 @@ import store from "./store/store.ts"
 const App = () => {
 
     useEffect(() => {
-        store.getWheel().then(() => {
-            console.log('done')
-        })
+        store.getWheel()
     })
 
     return (

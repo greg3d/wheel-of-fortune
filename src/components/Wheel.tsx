@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {ColorGen} from "../utils/constants";
 import store from "../store/store.ts";
-import { observer } from "mobx-react"
+import {observer} from "mobx-react"
 
 const Wheel = () => {
 
@@ -17,7 +17,10 @@ const Wheel = () => {
 
     return (
         <div className="wheel-container">
-            {store.winnerSectorId != 0 ? <div className={"wheel-pointer"}>{store.winnerSectorId}</div> : ''}
+            <div className={"wheel-pointer"}>
+                {store.winnerSectorId != 0 ? store.winnerSectorId : "..."}
+            </div>
+
             <div className="wheel" style={{
                 width: width + 'px',
                 height: width + 'px',

@@ -1,18 +1,15 @@
-import React, {useContext, useState} from 'react';
-import {WheelContext} from "../utils/WheelContext";
-
+import React, {useState} from 'react';
+import store from "../store/store.ts";
+import {observer} from "mobx-react";
 const RotateButton = () => {
 
-    const wc = useContext(WheelContext)
     const [isRot, setIsRot] = useState<boolean>(false)
 
     const clickHandle = function (e: React.MouseEvent<HTMLButtonElement>) {
         setIsRot(true);
         e.preventDefault()
-        if (wc.setIsRotating && wc.spinWheel) {
-            wc.setIsRotating(true)
-            wc.spinWheel()
-        }
+        store.isRotating = true;
+        store.spinWheel(store.UUID)
     }
     return (
 
@@ -23,4 +20,4 @@ const RotateButton = () => {
     );
 };
 
-export default RotateButton;
+export default observer(RotateButton);

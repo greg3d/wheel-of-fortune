@@ -1,44 +1,30 @@
-import React, { useEffect, useState} from 'react';
-import {useContext} from "react";
-import {WheelContext} from "../utils/WheelContext";
+import {useEffect, useState} from 'react';
 import {ColorGen} from "../utils/constants";
+import store from "../store/store.ts";
+import { observer } from "mobx-react"
 
-interface Props {
-    propa: number,
-    propb: string
-}
+const Wheel = () => {
 
-const Wheel = (props:Props) => {
-
-
-    const {wheel, rotation, winnerSectorId} = useContext(WheelContext)
     const colors = new ColorGen();
     const [width, setWidth] = useState<number>(0);
 
-    useEffect(()=>{
+    useEffect(() => {
         const wc = document.querySelector<HTMLDivElement>('.wheel-container') as HTMLDivElement;
-        setWidth(wc.clientWidth-20);
-
-        console.log(props.propa)
-        console.log(props.propb)
+        setWidth(wc.clientWidth - 20);
     })
 
-    let w = Math.round(Math.tan(180/ wheel.sectors.length / 57.3) * (width / 2))
-    //console.log(Math.round(Math.tan(180/ wheel.sectors.length / 57.3) * (width / 2)))
-    return (
+    let w = Math.round(Math.tan(180 / store.sectors.length / 57.3) * (width / 2))
 
+    return (
         <div className="wheel-container">
-            <div className={"wheel-pointer"}>{ winnerSectorId == 0 ? '' : winnerSectorId}</div>
+            {store.winnerSectorId != 0 ? <div className={"wheel-pointer"}>{store.winnerSectorId}</div> : ''}
             <div className="wheel" style={{
                 width: width + 'px',
                 height: width + 'px',
-                transform: `rotate(${rotation}deg)`
+                transform: `rotate(${store.rotation}deg)`
             }}>
-
-                {wheel.sectors.map((sector, index) => {
-
-                    let curr = index * 360 / wheel.sectors.length;
-
+                {store.sectors.map((sector: ISector, index: number) => {
+                    let curr = index * 360 / store.sectors.length;
                     return (
                         <div key={sector.id} className={"sector"}
                              style={{transform: `translateY(-100%) rotate(-${curr}deg)`}}>
@@ -47,17 +33,16 @@ const Wheel = (props:Props) => {
                                 height: 0,
                                 border: `${w}px solid transparent`,
                                 borderLeft: '0 solid transparent',
-                                borderRight: `${width/2}px solid #${colors.getNextColor()}`,
+                                borderRight: `${width / 2}px solid #${colors.getNextColor()}`,
 
                             }}></div>
-                            <div className="sector-label"><span className={"sector-number"}>{sector.id +1 }</span><span>{sector.name}</span></div>
+                            <div className="sector-label"><span
+                                className={"sector-number"}>{sector.id + 1}</span><span>{sector.name}</span></div>
                         </div>
                     )
                 })}
-
             </div>
         </div>
     );
 };
-
-export default Wheel;
+export default observer(Wheel);
